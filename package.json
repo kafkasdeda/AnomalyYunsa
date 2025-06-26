@@ -1,0 +1,29 @@
+{
+  "name": "anomaly-yunsa",
+  "version": "1.0.0",
+  "description": "AI-powered fabric quality control system",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend", 
+    "shared"
+  ],
+
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:back": "turbo run dev --filter=backend",
+    "dev:front": "turbo run dev --filter=frontend",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean"
+  },
+  "devDependencies": {
+    "turbo": "^1.13.4"
+  },
+  "packageManager": "npm",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}
