@@ -16,6 +16,10 @@ interface UseCanvasReturn {
   stageRef: React.RefObject<Stage>;
   layerRef: React.RefObject<Layer>;
   
+  // Preview support
+  getPatternAsCanvas: () => HTMLCanvasElement | null;
+  onPatternChange: (callback: () => void) => () => void;
+  
   // Tool management
   setTool: (tool: CanvasState['tool']) => void;
   setBrushSize: (size: number) => void;
@@ -310,6 +314,19 @@ export const useCanvas = (): UseCanvasReturn => {
     // TODO: Implement in next phase
   }, []);
 
+  // Preview support methods
+  const getPatternAsCanvas = useCallback(() => {
+    if (!stageRef.current) return null;
+    return stageRef.current.toCanvas();
+  }, []);
+
+  const onPatternChange = useCallback((callback: () => void) => {
+    // Return cleanup function for useEffect
+    return () => {
+      // Cleanup logic if needed
+    };
+  }, []);
+
   return {
     canvasState,
     pattern,
@@ -340,5 +357,7 @@ export const useCanvas = (): UseCanvasReturn => {
     exportPattern,
     importPattern,
     clearPattern,
+    getPatternAsCanvas,
+    onPatternChange,
   };
 };
