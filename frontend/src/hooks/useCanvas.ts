@@ -237,7 +237,7 @@ export const useCanvas = (): UseCanvasReturn => {
 
   // Helper functions for size calculations
   const getCanvasPixelSizeForPatternSize = (size: PatternSize) => {
-    // Convert to cm for calculation
+    // Convert to cm for calculation (EXACT precision)
     let cmWidth = size.width;
     let cmHeight = size.height;
     
@@ -263,9 +263,19 @@ export const useCanvas = (): UseCanvasReturn => {
       pixelsPerCm = 12; // Minimal detail to fit screen
     }
     
+    // EXACT pixel calculation - NO ROUNDING!
+    const exactWidth = cmWidth * pixelsPerCm;
+    const exactHeight = cmHeight * pixelsPerCm;
+    
+    console.log('🎯 CANVAS PIXEL SIZE CALCULATION:');
+    console.log('Pattern size:', size);
+    console.log('CM dimensions:', { width: cmWidth, height: cmHeight });
+    console.log('Pixels per cm:', pixelsPerCm);
+    console.log('EXACT pixel size:', { width: exactWidth, height: exactHeight });
+    
     return {
-      width: Math.round(cmWidth * pixelsPerCm),
-      height: Math.round(cmHeight * pixelsPerCm)
+      width: exactWidth,   // NO Math.round() - exact precision!
+      height: exactHeight  // NO Math.round() - exact precision!
     };
   };
 
